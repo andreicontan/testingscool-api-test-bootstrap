@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: To-Do API
+  description: API for managing To-Do tasks
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /todos:
+    get:
+      summary: Get all To-Do items
+      responses:
+        '200':
+          description: A list of To-Do items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToDo'
+    post:
+      summary: Create a new To-Do item
+      requestBody:
+        description: To-Do item to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToDo'
+      responses:
+        '201':
+          description: To-Do item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToDo'
+
+  /todos/{id}:
+    get:
+      summary: Get a To-Do item by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the To-Do item
+      responses:
+        '200':
+          description: To-Do item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToDo'
+        '404':
+          description: To-Do item not found
+    put:
+      summary: Update a To-Do item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the To-Do item
+      requestBody:
+        description: To-Do item to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToDo'
+      responses:
+        '200':
+          description: To-Do item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToDo'
+        '404':
+          description: To-Do item not found
+    delete:
+      summary: Delete a To-Do item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID of the To-Do item
+      responses:
+        '204':
+          description: To-Do item deleted
+        '404':
+          description: To-Do item not found
+
+components:
+  schemas:
+    ToDo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier for the To-Do item
+        title:
+          type: string
+          description: The title of the To-Do item
+        description:
+          type: string
+          description: The description of the To-Do item
+        status:
+          type: string
+          enum: [pending, completed]
+          description: The status of the To-Do item
+        created_at:
+          type: string
+          format: date-time
+          description: The creation timestamp of the To-Do item
+        updated_at:
+          type: string
+          format: date-time
+          description: The last update timestamp of the To-Do item
