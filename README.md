@@ -1,4 +1,17 @@
-# testingscool-api-test-bootstrap
+# Coding while Testing with support of openAI
+
+### Blog Post Intro: "Beyond the Tools: Mastering the Concepts Behind Effective Software Testing"
+
+In the fast-paced world of software development, it's easy to get caught up in the latest tools and technologies. New frameworks, libraries, and platforms are constantly emerging, promising to simplify our work and accelerate our progress. However, while tools are undeniably valuable, they are only as effective as the understanding and mastery of the concepts behind them.
+
+The rise of AI is already a productivity booster for software engineers. While the debate of AI replacing Humans is still a hot topic, my focus currently is in using AI for what it is - a tool to boost my productivity and free up time to focus on other activities - conversations with stakeholders, boost confidence, upskill colleagues, etc.
+
+Writing code for test automation remains main focus for most projects and teams and LLM tools provide a real booster here.
+
+_Humans get to own the strategy & tactics while tools can handle the operational endeavor. _
+
+In this post, we'll explore an extensive list of skills and concepts that every software engineer should master to go beyond mere tool usage. Whether you're implementing in-memory testing or any other software practice, it's this foundation of knowledge that empowers you to make the right decisions, troubleshoot issues, and truly leverage the tools at your disposal. After all, tools can change, but the underlying principles remain constant—and it's those principles that set great engineers apart from the rest.
+
 
 create an openapi yaml file documenting a POST endpoint called /createBook with a body structure: name of type String and pages of type int. Document the status codes 201, 404, 401, 500
 ```
@@ -757,63 +770,38 @@ create an extensive list of skills and concepts for a software engineer to know 
 
 To effectively implement in-memory testing practices using tools like MockMvc in a Spring Boot environment, a software engineer should possess a solid understanding of various skills and concepts. Below is an extensive list categorized into relevant domains:
 
-1. Core Java Skills
-Java Syntax and Fundamentals: Understanding of basic Java syntax, data types, operators, control structures (loops, if/else, switch), and error handling (try/catch, exceptions).
-Object-Oriented Programming (OOP): Concepts like classes, objects, inheritance, polymorphism, abstraction, and encapsulation.
-Java Collections Framework: Lists, Sets, Maps, Queues, and their implementations.
-Concurrency and Multithreading: Understanding of threads, synchronization, concurrency utilities (java.util.concurrent), and thread safety.
-I/O and Serialization: Reading/writing files, object serialization/deserialization, streams (both I/O and functional streams).
-2. Spring Framework
-Spring Core: Dependency Injection (DI), Inversion of Control (IoC), application context, bean lifecycle, and scopes.
-Spring MVC: Understanding of Model-View-Controller architecture, controllers, request mappings, model attributes, and view resolvers.
-Spring Boot: Spring Boot starters, auto-configuration, application properties, profiles, and embedded servers.
-Spring Data JPA: JPA annotations, repositories, query methods, and transactions.
-Spring Security: Basic authentication, authorization, roles, method security, and integrating with OAuth2/JWT.
-3. Testing and Quality Assurance
+Core Coding Skills
 JUnit 5: Writing unit tests, understanding annotations (@Test, @BeforeAll, @BeforeEach, etc.), and assertion methods.
 Mockito: Mocking dependencies, stubbing methods, verifying interactions, and understanding the behavior-driven development (BDD) approach.
 MockMvc: Simulating HTTP requests, validating responses, working with request builders and result matchers.
 Test-Driven Development (TDD): Writing tests first, implementing code to pass tests, and iterative development.
-Behavior-Driven Development (BDD): Writing tests in a human-readable format (Gherkin syntax) using tools like Cucumber.
+
 Integration Testing: Testing the interaction between multiple components/modules, using Spring’s @SpringBootTest, @DataJpaTest, etc.
-Load/Performance Testing: Basics of performance testing using tools like JMeter or Gatling, and understanding metrics like response time, throughput, and scalability.
-4. Database Management
-SQL: Writing queries, understanding joins, subqueries, transactions, indexing, and stored procedures.
-JPA/Hibernate: Mapping entities to tables, entity relationships (one-to-many, many-to-many), lazy vs. eager loading, and the Hibernate session lifecycle.
-In-Memory Databases: Using H2 or HSQLDB for testing, configuring them with Spring Boot, and understanding the difference between in-memory and persistent databases.
-Database Migrations: Tools like Flyway or Liquibase for managing schema changes, versioning, and rolling back migrations.
-5. Web Development and RESTful Services
+
 REST Principles: Understanding REST constraints, statelessness, resource identification, and standard HTTP methods (GET, POST, PUT, DELETE).
 JSON Processing: Parsing and generating JSON using libraries like Jackson or Gson.
 HTTP Protocol: Status codes, headers, methods, and the structure of HTTP requests and responses.
 API Versioning: Techniques for versioning APIs and maintaining backward compatibility.
 Error Handling: Implementing global exception handling in Spring using @ControllerAdvice and @ExceptionHandler.
+
 6. Build and Deployment Tools
 Maven/Gradle: Dependency management, build lifecycle, plugins, and writing custom build tasks.
 Continuous Integration/Continuous Deployment (CI/CD): Understanding pipelines, integrating tests into CI, tools like Jenkins, GitHub Actions, GitLab CI, or CircleCI.
 Docker: Containerizing applications, writing Dockerfiles, and understanding Docker Compose for multi-container applications.
+
 7. DevOps and Cloud Concepts
-Infrastructure as Code (IaC): Basics of Terraform or Ansible for provisioning infrastructure.
-Container Orchestration: Understanding Kubernetes, pods, services, deployments, and managing containerized applications at scale.
-Monitoring and Logging: Tools like Prometheus, Grafana, ELK stack (Elasticsearch, Logstash, Kibana), and basics of alerting and logging best practices.
-Cloud Platforms: Familiarity with AWS, Azure, or GCP, especially services like EC2, S3, RDS, Lambda, and basic networking concepts (VPC, subnets, security groups).
+
 8. Software Architecture and Design
-Design Patterns: Common patterns like Singleton, Factory, Builder, Observer, and MVC.
+
 Microservices Architecture: Understanding service decomposition, inter-service communication (REST, gRPC, messaging), API gateways, and service discovery.
 Clean Architecture: Layered architecture principles, separation of concerns, and dependency inversion.
-Domain-Driven Design (DDD): Understanding entities, value objects, aggregates, repositories, and bounded contexts.
+
 9. Version Control and Collaboration
 Git: Branching strategies, rebasing, merging, handling conflicts, pull requests, and collaboration workflows (e.g., GitFlow).
 Code Review: Best practices for reviewing code, writing meaningful commit messages, and using tools like Gerrit or GitHub for code review processes.
-Documentation: Writing clear, maintainable documentation using tools like Swagger/OpenAPI for API documentation, and Markdown for project documentation.
+
 10. Soft Skills
 Problem-Solving: Analytical thinking, breaking down complex problems, and designing solutions.
 Communication: Explaining technical concepts to non-technical stakeholders, and writing clear, concise documentation.
 Collaboration: Working effectively in teams, understanding Agile methodologies (Scrum, Kanban), and participating in sprint planning, standups, and retrospectives.
 Time Management: Prioritizing tasks, managing deadlines, and balancing multiple projects or tasks simultaneously.
-11. Advanced Concepts (Optional)
-Event-Driven Architecture: Understanding event sourcing, CQRS (Command Query Responsibility Segregation), and using message brokers (Kafka, RabbitMQ).
-Reactive Programming: Basics of reactive streams, using frameworks like Project Reactor or RxJava.
-Functional Programming: Understanding functional programming concepts and applying them in Java (using streams, lambdas, optionals).
-Security Best Practices: Protecting APIs against common vulnerabilities (OWASP Top Ten), using tools like Spring Security for OAuth2/JWT.
-By mastering these skills and concepts, a software engineer will be well-equipped to implement in-memory testing practices effectively and tackle a wide range of challenges in software development and testing.
