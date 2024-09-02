@@ -13,7 +13,8 @@ _Humans get to own the strategy & tactics while tools can handle the operational
 In this post, we'll explore an extensive list of skills and concepts that every software engineer should master to go beyond mere tool usage. Whether you're implementing in-memory testing or any other software practice, it's this foundation of knowledge that empowers you to make the right decisions, troubleshoot issues, and truly leverage the tools at your disposal. After all, tools can change, but the underlying principles remain constant—and it's those principles that set great engineers apart from the rest.
 
 
-create an openapi yaml file documenting a POST endpoint called /createBook with a body structure: name of type String and pages of type int. Document the status codes 201, 404, 401, 500
+**Prompt: create an openapi yaml file documenting a POST endpoint called /createBook with a body structure: name of type String and pages of type int. Document the status codes 201, 404, 401, 500**
+
 ```
 yaml
 Copy code
@@ -65,57 +66,9 @@ security:
   - bearerAuth: []
 ```
 
-
-
 Create also tests to functionally validate the deployment of the API. Use Rest Assured and Junit 5. 
 
-
-Maven Dependencies
-First, make sure you have the necessary dependencies in your pom.xml file:
-
 ```
-<dependencies>
-    <!-- Rest Assured for API testing -->
-    <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>rest-assured</artifactId>
-        <version>5.3.0</version>
-        <scope>test</scope>
-    </dependency>
-
-    <!-- JUnit 5 for testing -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>5.10.0</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.10.0</version>
-        <scope>test</scope>
-    </dependency>
-
-    <!-- JSON library for creating JSON objects -->
-    <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20230227</version>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
-```
-```
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-
 public class CreateBookApiTest {
 
     @BeforeAll
@@ -192,19 +145,8 @@ public class CreateBookApiTest {
 ```
 
 
-make the requestbody to be read from a Json file located under test/resources directory. Just return the tests without explanations
+**Prompt: make the requestbody to be read from a Json file located under test/resources directory. Just return the tests without explanations**
 ```
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-
 public class CreateBookApiTest {
 
     @BeforeAll
@@ -275,20 +217,12 @@ public class CreateBookApiTest {
 }
 ```
 
-make the test class extensible for future tests of different endpoints
-```
+**Prompt: make the test class extensible for future tests of different endpoints**
+
+
 Base API Test Class
 This class will contain shared setup logic and utility methods for reading JSON files:
-
-java
-Copy code
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeAll;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
+```
 public abstract class BaseApiTest {
 
     @BeforeAll
@@ -312,8 +246,6 @@ public abstract class BaseApiTest {
     }
 }
 ```
-CreateBookApiTest Class
-This class will extend the base class and will include tests specific to the /createBook endpoint:
 
 ```
 public class CreateBookApiTest extends BaseApiTest {
@@ -369,7 +301,7 @@ public class AnotherEndpointApiTest extends BaseApiTest {
 This structure allows you to easily add new endpoints and test scenarios while keeping your code organized and DRY (Don't Repeat Yourself). The base class handles common logic, and each specific test class focuses on the unique aspects of the endpoint it is testing.
 
 
-introduce Data Driven approach to minimize the number of test methods
+**Prompt: introduce Data Driven approach to minimize the number of test methods**
 
 To implement a data-driven approach in your testing framework, you can use JUnit 5's @ParameterizedTest annotation along with a method that provides test data. This approach will minimize the number of test methods by allowing you to run the same test logic with different input data.
 
@@ -400,9 +332,6 @@ public abstract class BaseApiTest {
     }
 }
 ```
-
-CreateBookApiTest Class with Data-Driven Approach
-In this version, the @ParameterizedTest annotation is used with a MethodSource that supplies different test cases:
 
 ```
 public class CreateBookApiTest extends BaseApiTest {
@@ -473,28 +402,10 @@ public class CreateBookApiTest extends BaseApiTest {
     }
 }
 ```
-```
-Explanation:
-TestData Class: This is a simple data holder class that encapsulates the parameters for each test scenario: the endpoint, the path to the JSON request body, the expected status code, the JSON path to validate, and the expected value.
-
-provideTestData Method: This method provides a stream of TestData objects, each representing a different test scenario. This allows you to reuse the same test logic with different inputs.
-
-@ParameterizedTest: The test method is annotated with @ParameterizedTest, and it uses @MethodSource to pull in the test data. The test method then uses this data to perform the API request and validation.
-
-Conditional Logic: If specific handling (like adding an invalid token) is needed, you can include conditional logic within the test method.
-
-Adding More Tests
-To add tests for new endpoints, you just need to:
-
-Add new TestData objects in the provideTestData method for the new endpoint.
-(Optional) Extend or modify the test logic if necessary, depending on the uniqueness of the endpoint.
-This approach minimizes the number of test methods and makes it easy to add new test cases without duplicating code.
-```
 
 
-any configuration or environment specific variable, make it readable from a configuration file. 
-The file is used in the mvn test command line to point to different environments .
-```
+**Prompt: any configuration or environment specific variable, make it readable from a configuration file. The file is used in the mvn test command line to point to different environments .**
+
 Configuration File (config.properties)
 Create a config.properties file that contains environment-specific variables:
 
@@ -504,13 +415,10 @@ authorizationToken=ValidTokenHere
 Maven Command to Use Configuration File
 Pass the configuration file location as a system property when running Maven:
 
-bash
-Copy code
-mvn test -DconfigFile=src/test/resources/config.properties
-BaseApiTest Class
-Modify BaseApiTest to read from the configuration file:
-```
 
+mvn test -DconfigFile=src/test/resources/config.properties
+
+Modify BaseApiTest to read from the configuration file:
 ```
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
@@ -552,115 +460,11 @@ public abstract class BaseApiTest {
     }
 }
 ```
-CreateBookApiTest Class
-No changes needed in this class since it will now use the configuration from BaseApiTest:
 
-```
-public class CreateBookApiTest extends BaseApiTest {
+**Prompt: rewrite the tests to run in-memory during build time. return only one example**
 
-    static Stream<TestData> provideTestData() {
-        return Stream.of(
-            new TestData("/createBook", "src/test/resources/successRequest.json", 201, "message", "Book created successfully"),
-            new TestData("/createBook", "src/test/resources/unauthorizedRequest.json", 401, "error", "Unauthorized"),
-            new TestData("/nonExistentEndpoint", "src/test/resources/notFoundRequest.json", 404, "error", "Not Found"),
-            new TestData("/createBook", "src/test/resources/serverErrorRequest.json", 500, "error", "Internal Server Error")
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("provideTestData")
-    public void testCreateBook(TestData testData) throws Exception {
-        String requestBody = readJsonFromFile(testData.getRequestBodyPath());
-
-        if (testData.getExpectedStatusCode() == 401) {
-            given()
-                .contentType(io.restassured.http.ContentType.JSON)
-                .body(requestBody)
-                .header("Authorization", "InvalidToken")
-            .when()
-                .post(testData.getEndpoint())
-            .then()
-                .statusCode(testData.getExpectedStatusCode())
-                .body(testData.getJsonPath(), equalTo(testData.getExpectedValue()));
-        } else {
-            sendPostRequest(testData.getEndpoint(), requestBody, testData.getExpectedStatusCode(), testData.getJsonPath(), testData.getExpectedValue());
-        }
-    }
-
-    static class TestData {
-        private final String endpoint;
-        private final String requestBodyPath;
-        private final int expectedStatusCode;
-        private final String jsonPath;
-        private final Object expectedValue;
-
-        public TestData(String endpoint, String requestBodyPath, int expectedStatusCode, String jsonPath, Object expectedValue) {
-            this.endpoint = endpoint;
-            this.requestBodyPath = requestBodyPath;
-            this.expectedStatusCode = expectedStatusCode;
-            this.jsonPath = jsonPath;
-            this.expectedValue = expectedValue;
-        }
-
-        public String getEndpoint() {
-            return endpoint;
-        }
-
-        public String getRequestBodyPath() {
-            return requestBodyPath;
-        }
-
-        public int getExpectedStatusCode() {
-            return expectedStatusCode;
-        }
-
-        public String getJsonPath() {
-            return jsonPath;
-        }
-
-        public Object getExpectedValue() {
-            return expectedValue;
-        }
-    }
-}
-```
-
-
-rewrite the tests to run in-memory during build time. return only one example
-ChatGPT said:
-ChatGPT
 To rewrite the tests to run in-memory during build time, we can use tools like H2 (for in-memory database testing) and frameworks like Spring Boot with its @SpringBootTest annotation to spin up an in-memory application context. Below is an example of how you could set up a test that runs in-memory:
 
-Maven Dependencies
-Add the necessary dependencies to your pom.xml:
-
-xml
-Copy code
-<dependencies>
-    <!-- Spring Boot Test for in-memory testing -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <version>3.1.4</version>
-        <scope>test</scope>
-    </dependency>
-
-    <!-- H2 Database for in-memory testing -->
-    <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <version>2.2.222</version>
-        <scope>test</scope>
-    </dependency>
-
-    <!-- Rest Assured for API testing -->
-    <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>rest-assured</artifactId>
-        <version>5.3.0</version>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
 
 ```
 @ExtendWith(SpringExtension.class)
@@ -707,13 +511,9 @@ Rest Assured: Used to perform HTTP requests against the in-memory application.
 Running this test will start the application in memory, perform the test, and shut it down automatically, ensuring that it runs entirely in-memory during build time.
 
 
+**Prompt: is the usage of mockMVC instead of restAssured, recommended here?**
 
-
-
-
-You said:
-Q: is the usage of mockMVC instead of restAssured, recommended here?
-A: Yes, using MockMvc instead of RestAssured is generally recommended for in-memory testing within a Spring Boot context. Here's why:
+Yes, using MockMvc instead of RestAssured is generally recommended for in-memory testing within a Spring Boot context. Here's why:
 
 Benefits of Using MockMvc
 In-Memory Execution: MockMvc is designed to test Spring MVC controllers by simulating HTTP requests without starting the full server. It runs entirely in-memory, making it faster and more suitable for unit tests or integration tests that don't require a full HTTP stack.
@@ -765,43 +565,29 @@ It provides a more direct way to test Spring MVC controllers and their related c
 So, for in-memory testing of Spring Boot applications, MockMvc is indeed recommended over RestAssured.
 
 
-You said:
-create an extensive list of skills and concepts for a software engineer to know in order to implement this kind of practices
+**Prompt: create a list of skills and concepts for a software engineer to know in order to implement this kind of practices**
 
 To effectively implement in-memory testing practices using tools like MockMvc in a Spring Boot environment, a software engineer should possess a solid understanding of various skills and concepts. Below is an extensive list categorized into relevant domains:
 
-Core Coding Skills
-JUnit 5: Writing unit tests, understanding annotations (@Test, @BeforeAll, @BeforeEach, etc.), and assertion methods.
-Mockito: Mocking dependencies, stubbing methods, verifying interactions, and understanding the behavior-driven development (BDD) approach.
-MockMvc: Simulating HTTP requests, validating responses, working with request builders and result matchers.
-Test-Driven Development (TDD): Writing tests first, implementing code to pass tests, and iterative development.
-
-Integration Testing: Testing the interaction between multiple components/modules, using Spring’s @SpringBootTest, @DataJpaTest, etc.
-
-REST Principles: Understanding REST constraints, statelessness, resource identification, and standard HTTP methods (GET, POST, PUT, DELETE).
-JSON Processing: Parsing and generating JSON using libraries like Jackson or Gson.
-HTTP Protocol: Status codes, headers, methods, and the structure of HTTP requests and responses.
-API Versioning: Techniques for versioning APIs and maintaining backward compatibility.
-Error Handling: Implementing global exception handling in Spring using @ControllerAdvice and @ExceptionHandler.
-
-6. Build and Deployment Tools
-Maven/Gradle: Dependency management, build lifecycle, plugins, and writing custom build tasks.
-Continuous Integration/Continuous Deployment (CI/CD): Understanding pipelines, integrating tests into CI, tools like Jenkins, GitHub Actions, GitLab CI, or CircleCI.
-Docker: Containerizing applications, writing Dockerfiles, and understanding Docker Compose for multi-container applications.
-
-7. DevOps and Cloud Concepts
-
-8. Software Architecture and Design
-
-Microservices Architecture: Understanding service decomposition, inter-service communication (REST, gRPC, messaging), API gateways, and service discovery.
-Clean Architecture: Layered architecture principles, separation of concerns, and dependency inversion.
-
-9. Version Control and Collaboration
-Git: Branching strategies, rebasing, merging, handling conflicts, pull requests, and collaboration workflows (e.g., GitFlow).
-Code Review: Best practices for reviewing code, writing meaningful commit messages, and using tools like Gerrit or GitHub for code review processes.
-
-10. Soft Skills
-Problem-Solving: Analytical thinking, breaking down complex problems, and designing solutions.
-Communication: Explaining technical concepts to non-technical stakeholders, and writing clear, concise documentation.
-Collaboration: Working effectively in teams, understanding Agile methodologies (Scrum, Kanban), and participating in sprint planning, standups, and retrospectives.
-Time Management: Prioritizing tasks, managing deadlines, and balancing multiple projects or tasks simultaneously.
+- Core Coding Skills
+  - JUnit 5: Writing unit tests, understanding annotations (@Test, @BeforeAll, @BeforeEach, etc.), and assertion methods.
+  - Mockito: Mocking dependencies, stubbing methods, verifying interactions, and understanding the behavior-driven development (BDD) approach.
+  - MockMvc: Simulating HTTP requests, validating responses, working with request builders and result matchers.
+  - Test-Driven Development (TDD): Writing tests first, implementing code to pass tests, and iterative development.
+  - Integration Testing: Testing the interaction between multiple components/modules, using Spring’s @SpringBootTest, @DataJpaTest, etc.
+  - REST Principles: Understanding REST constraints, statelessness, resource identification, and standard HTTP methods (GET, POST, PUT, DELETE).
+  - JSON Processing: Parsing and generating JSON using libraries like Jackson or Gson.
+  - HTTP Protocol: Status codes, headers, methods, and the structure of HTTP requests and responses.
+  - API Versioning: Techniques for versioning APIs and maintaining backward compatibility.
+  - Error Handling: Implementing global exception handling in Spring using @ControllerAdvice and @ExceptionHandler.
+  - Maven/Gradle: Dependency management, build lifecycle, plugins, and writing custom build tasks.
+  - Continuous Integration/Continuous Deployment (CI/CD): Understanding pipelines, integrating tests into CI, tools like Jenkins, GitHub Actions, GitLab CI, or CircleCI.
+  - Docker: Containerizing applications, writing Dockerfiles, and understanding Docker Compose for multi-container applications.
+  - Microservices Architecture: Understanding service decomposition, inter-service communication (REST, gRPC, messaging), API gateways, and service discovery.
+  - Clean Architecture: Layered architecture principles, separation of concerns, and dependency inversion.
+  - Git: Branching strategies, rebasing, merging, handling conflicts, pull requests, and collaboration workflows (e.g., GitFlow).
+  - Code Review: Best practices for reviewing code, writing meaningful commit messages, and using tools like Gerrit or GitHub for code review processes.
+  - Problem-Solving: Analytical thinking, breaking down complex problems, and designing solutions.
+  - Communication: Explaining technical concepts to non-technical stakeholders, and writing clear, concise documentation.
+  - Collaboration: Working effectively in teams, understanding Agile methodologies (Scrum, Kanban), and participating in sprint planning, standups, and retrospectives.
+  - Time Management: Prioritizing tasks, managing deadlines, and balancing multiple projects or tasks simultaneously.
